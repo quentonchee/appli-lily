@@ -185,6 +185,11 @@ const MEMORIES = [
         videoUrl: "assets/Quentin/video.mp4"
     },
     {
+        id: "selegini",
+        name: "Selegini",
+        videoUrl: "assets/selegini/Sellighini.mp4"
+    },
+    {
         id: "sarah-de-skyrock",
         name: "Sarah de Skyrock",
         videoUrl: "assets/Sarah-de-skyrock/video.mp4"
