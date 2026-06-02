@@ -1,0 +1,552 @@
+/* -------------------------------------------------------------
+   STYLES COMPLÉMENTAIRES POUR L'ESPACE SKYROCK
+   ------------------------------------------------------------- */
+
+/* Transitions de changement de page (Surprise) */
+.skyrock-hero-content {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.skyrock-hero-content.fade-out {
+    opacity: 0;
+    transform: scale(0.96) translateY(-20px);
+    pointer-events: none;
+}
+
+.skyrock-container {
+    display: none;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                transform 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.skyrock-container.reveal {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.back-home-wrapper-inner {
+    margin-top: 10px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.back-home-btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    background: rgba(25, 17, 49, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-glass);
+    color: var(--text-main);
+    box-shadow: var(--shadow-soft);
+}
+
+.back-home-btn:hover {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary-glow);
+    transform: translateX(-5px);
+}
+
+/* Ajustements Hero */
+.skyrock-hero {
+    min-height: 55vh;
+    padding-top: 100px;
+    padding-bottom: 20px;
+}
+
+.skyrock-icon-wrapper {
+    color: var(--secondary);
+    background: rgba(255, 0, 127, 0.05);
+    border-color: var(--secondary-glow);
+}
+
+/* Égaliseur Audio Animé */
+.audio-wave-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 6px;
+    height: 40px;
+    margin-top: 30px;
+}
+
+.bar {
+    width: 6px;
+    height: 5px;
+    background: linear-gradient(to top, var(--primary) 0%, var(--secondary) 100%);
+    border-radius: 3px;
+    animation: bounceWave 1.2s ease-in-out infinite alternate;
+}
+
+.bar-1 { animation-delay: 0.1s; }
+.bar-2 { animation-delay: 0.4s; }
+.bar-3 { animation-delay: 0.2s; }
+.bar-4 { animation-delay: 0.6s; }
+.bar-5 { animation-delay: 0.3s; }
+.bar-6 { animation-delay: 0.7s; }
+.bar-7 { animation-delay: 0.5s; }
+.bar-8 { animation-delay: 0.2s; }
+
+@keyframes bounceWave {
+    0% {
+        height: 6px;
+    }
+    100% {
+        height: 38px;
+    }
+}
+
+/* Conteneur principal */
+.skyrock-container {
+    padding-top: 0;
+    margin-top: -20px;
+}
+
+/* Grille de Dossiers */
+.folders-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 20px;
+}
+
+@media (max-width: 960px) {
+    .folders-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 650px) {
+    .folders-grid {
+        grid-template-columns: 1fr;
+    }
+    .back-home-wrapper {
+        position: relative;
+        top: 20px;
+        left: 20px;
+        margin-bottom: 20px;
+    }
+    .skyrock-hero {
+        min-height: 45vh;
+        padding-top: 40px;
+    }
+}
+
+/* Wrapper Dossier complet */
+.folder-card-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* Carte Dossier principale */
+.folder-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px;
+    cursor: pointer;
+    transition: var(--transition-bounce);
+    border: 1px solid var(--border-glass);
+    position: relative;
+    user-select: none;
+}
+
+.folder-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--border-glow);
+    background: rgba(43, 31, 79, 0.6);
+    box-shadow: var(--shadow-glow), var(--shadow-soft);
+}
+
+/* Icone Dossier style macOS Finder */
+.folder-icon-area {
+    position: relative;
+    width: 64px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.folder-finder {
+    position: relative;
+    width: 64px;
+    height: 52px;
+    perspective: 300px;
+    transform-style: preserve-3d;
+    flex-shrink: 0;
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.45)); /* Ombre portée style Apple OS */
+}
+
+/* Thèmes Finder style Apple OS (Bleu Classique Authentique de la Capture d'Écran) */
+.color-sarah, .color-ted, .color-maxime {
+    --finder-back: linear-gradient(to bottom, #108ee9, #086cb4);
+    --finder-tab: #108ee9;
+    --finder-front: linear-gradient(to bottom, #39a6f4, #0875c7);
+    --finder-border: #0875c7;
+}
+
+.color-sarah {
+    --color: #9d4edd;
+}
+
+.color-ted {
+    --color: #ff007f;
+}
+
+.color-maxime {
+    --color: #ffb703;
+}
+
+/* Rabat arrière Finder - Taille fixe */
+.finder-back {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 64px;
+    height: 44px;
+    border-radius: 5px;
+    background: var(--finder-back);
+    border: 1px solid var(--finder-border);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.15);
+    z-index: 1;
+}
+
+/* Onglet supérieur style Finder - Forme arrondie macOS authentique */
+.finder-tab {
+    position: absolute;
+    top: -6px;
+    left: 0;
+    width: 26px;
+    height: 8px;
+    background: var(--finder-tab);
+    border-radius: 3px 3px 0 0;
+    z-index: 1;
+}
+
+/* Document qui glisse du dossier style Finder - Taille fixe */
+.finder-paper {
+    position: absolute;
+    bottom: 2px;
+    left: 6px;
+    width: 52px;
+    height: 42px;
+    background: #ffffff;
+    border-radius: 3.5px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    transform: translateY(0) translateZ(1px);
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+/* Rabat avant Finder - Taille fixe */
+.finder-front {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 64px;
+    height: 41px;
+    border-radius: 5px;
+    background: var(--finder-front);
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.22);
+    transform-origin: bottom center;
+    transform: rotateX(0deg) translateZ(4px);
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    z-index: 3;
+}
+
+/* Animations interactives au Survol */
+.folder-card:hover .finder-front {
+    transform: rotateX(-26deg) translateZ(4px);
+}
+
+.folder-card:hover .finder-paper {
+    transform: translateY(-12px) translateZ(1px);
+}
+
+/* Animations interactives lorsque le dossier est Ouvert */
+.folder-card-wrapper.open .finder-front {
+    transform: rotateX(-38deg) translateZ(4px);
+}
+
+.folder-card-wrapper.open .finder-paper {
+    transform: translateY(-18px) translateZ(1px);
+}
+
+/* Points lumineux pulsants de notification */
+.pulse-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.dot-sarah {
+    background: #c77dff;
+    box-shadow: 0 0 8px #9d4edd;
+    animation: pulseSarah 2s infinite ease-in-out;
+}
+
+.dot-ted {
+    background: #ff66b2;
+    box-shadow: 0 0 8px #ff007f;
+    animation: pulseTed 2s infinite ease-in-out;
+}
+
+.dot-maxime {
+    background: #ffc93c;
+    box-shadow: 0 0 8px #ffb703;
+    animation: pulseMaxime 2s infinite ease-in-out;
+}
+
+@keyframes pulseSarah {
+    0%, 100% { box-shadow: 0 0 4px #9d4edd; opacity: 0.7; }
+    50% { box-shadow: 0 0 12px #9d4edd; opacity: 1; }
+}
+
+@keyframes pulseTed {
+    0%, 100% { box-shadow: 0 0 4px #ff007f; opacity: 0.7; }
+    50% { box-shadow: 0 0 12px #ff007f; opacity: 1; }
+}
+
+@keyframes pulseMaxime {
+    0%, 100% { box-shadow: 0 0 4px #ffb703; opacity: 0.7; }
+    50% { box-shadow: 0 0 12px #ffb703; opacity: 1; }
+}
+
+/* Infos Dossier */
+.folder-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.folder-badge {
+    align-self: flex-start;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 12px;
+    letter-spacing: 0.5px;
+}
+
+.badge-sarah {
+    background: rgba(157, 78, 221, 0.15);
+    color: #c77dff;
+    border: 1px solid rgba(157, 78, 221, 0.3);
+}
+
+.badge-ted {
+    background: rgba(255, 0, 127, 0.12);
+    color: #ff66b2;
+    border: 1px solid rgba(255, 0, 127, 0.3);
+}
+
+.badge-maxime {
+    background: rgba(255, 183, 3, 0.12);
+    color: #ffc93c;
+    border: 1px solid rgba(255, 183, 3, 0.3);
+}
+
+.folder-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.folder-meta {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* Indicateur flèche (Chevron) */
+.folder-action-indicator {
+    color: var(--text-muted);
+    transition: var(--transition-smooth);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chevron-icon {
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Tiroir de contenu de dossier (Expandable Drawer) */
+.folder-content-drawer {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition: max-height 0.45s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                opacity 0.35s ease, 
+                visibility 0.35s;
+}
+
+.drawer-inner {
+    margin-top: 10px;
+    padding: 16px;
+    border-radius: var(--border-radius-md);
+    background: rgba(15, 10, 35, 0.45);
+    border: 1px solid var(--border-glass);
+}
+
+/* État ouvert du dossier */
+.folder-card-wrapper.open .folder-content-drawer {
+    max-height: 300px;
+    opacity: 1;
+    visibility: visible;
+}
+
+.folder-card-wrapper.open .folder-card {
+    border-color: var(--primary);
+    background: rgba(43, 31, 79, 0.7);
+    box-shadow: var(--shadow-soft);
+}
+
+.folder-card-wrapper.open .chevron-icon {
+    transform: rotate(180deg);
+    color: var(--primary);
+}
+
+.folder-card-wrapper.open .folder-front {
+    transform: rotateX(-45deg) skewX(-8deg) scaleY(0.92);
+}
+
+/* Vignette Vidéo Surprise */
+.video-preview-card {
+    display: flex;
+    gap: 16px;
+    padding: 12px;
+    border-radius: var(--border-radius-sm);
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.video-preview-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.12);
+    transform: scale(1.02);
+}
+
+.preview-thumbnail {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    border-radius: var(--border-radius-sm);
+    flex-shrink: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Gradients personnalisés pour les miniatures */
+.preview-thumbnail.color-sarah {
+    background: linear-gradient(135deg, #9d4edd 0%, #3c096c 100%);
+}
+
+.preview-thumbnail.color-ted {
+    background: linear-gradient(135deg, #ff007f 0%, #7a003c 100%);
+}
+
+.preview-thumbnail.color-maxime {
+    background: linear-gradient(135deg, #ffb703 0%, #9e5a00 100%);
+}
+
+.preview-tag {
+    position: absolute;
+    bottom: 5px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: rgba(0, 0, 0, 0.65);
+    padding: 2px 6px;
+    border-radius: 4px;
+    letter-spacing: 0.3px;
+    color: #fff;
+}
+
+.play-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+}
+
+.video-preview-card:hover .play-overlay {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.play-pulse-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--text-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: var(--transition-bounce);
+}
+
+.video-preview-card:hover .play-pulse-btn {
+    transform: scale(1.15);
+    background: var(--accent);
+    color: var(--text-dark);
+}
+
+.preview-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+}
+
+.preview-details h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.preview-details p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+@media (max-width: 480px) {
+    .video-preview-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    .preview-thumbnail {
+        width: 100%;
+        height: 120px;
+    }
+}

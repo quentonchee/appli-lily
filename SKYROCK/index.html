@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joyeux Anniversaire Lily - De la part de l'équipe Skyrock ! 📻🎈</title>
+    <meta name="description" content="Découvre les messages surprises de l'équipe Skyrock réunis sur une seule page interactive pour l'anniversaire de Lily.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet partagée -->
+    <link rel="stylesheet" href="../style.css">
+
+    <!-- Styles locaux embarqués pour contourner les problèmes de cache et de sécurité locale des navigateurs -->
+    <style>
+        /* -------------------------------------------------------------
+           STYLES COMPLÉMENTAIRES POUR L'ESPACE SKYROCK (EMBARQUÉS)
+           ------------------------------------------------------------- */
+
+        /* Transitions de changement de page (Surprise) */
+        .skyrock-hero-content {
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .skyrock-hero-content.fade-out {
+            opacity: 0;
+            transform: scale(0.96) translateY(-20px);
+            pointer-events: none;
+        }
+
+        .skyrock-container {
+            display: none;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                        transform 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .skyrock-container.reveal {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .back-home-wrapper-inner {
+            margin-top: 10px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .back-home-btn {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            background: rgba(25, 17, 49, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-glass);
+            color: var(--text-main);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .back-home-btn:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary-glow);
+            transform: translateX(-5px);
+        }
+
+        /* Ajustements Hero */
+        .skyrock-hero {
+            min-height: 55vh;
+            padding-top: 100px;
+            padding-bottom: 20px;
+        }
+
+        .skyrock-icon-wrapper {
+            color: var(--secondary);
+            background: rgba(255, 0, 127, 0.05);
+            border-color: var(--secondary-glow);
+        }
+
+        /* Égaliseur Audio Animé */
+        .audio-wave-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 6px;
+            height: 40px;
+            margin-top: 30px;
+        }
+
+        .bar {
+            width: 6px;
+            height: 5px;
+            background: linear-gradient(to top, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 3px;
+            animation: bounceWave 1.2s ease-in-out infinite alternate;
+        }
+
+        .bar-1 { animation-delay: 0.1s; }
+        .bar-2 { animation-delay: 0.4s; }
+        .bar-3 { animation-delay: 0.2s; }
+        .bar-4 { animation-delay: 0.6s; }
+        .bar-5 { animation-delay: 0.3s; }
+        .bar-6 { animation-delay: 0.7s; }
+        .bar-7 { animation-delay: 0.5s; }
+        .bar-8 { animation-delay: 0.2s; }
+
+        @keyframes bounceWave {
+            0% {
+                height: 6px;
+            }
+            100% {
+                height: 38px;
+            }
+        }
+
+        /* Conteneur principal */
+        .skyrock-container {
+            padding-top: 0;
+            margin-top: -20px;
+        }
+
+        /* Grille de Dossiers */
+        .folders-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 960px) {
+            .folders-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 650px) {
+            .folders-grid {
+                grid-template-columns: 1fr;
+            }
+            .back-home-wrapper {
+                position: relative;
+                top: 20px;
+                left: 20px;
+                margin-bottom: 20px;
+            }
+            .skyrock-hero {
+                min-height: 45vh;
+                padding-top: 40px;
+            }
+        }
+
+        /* Wrapper Dossier complet */
+        .folder-card-wrapper {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        /* Carte Dossier principale */
+        .folder-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 24px;
+            cursor: pointer;
+            transition: var(--transition-bounce);
+            border: 1px solid var(--border-glass);
+            position: relative;
+            user-select: none;
+        }
+
+        .folder-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--border-glow);
+            background: rgba(43, 31, 79, 0.6);
+            box-shadow: var(--shadow-glow), var(--shadow-soft);
+        }
+
+        /* Icone Dossier style macOS Finder - Dimensions et structures absolues */
+        .folder-icon-area {
+            position: relative;
+            width: 64px !important;
+            height: 52px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            flex-shrink: 0 !important;
+        }
+
+        .folder-finder {
+            position: relative !important;
+            width: 64px !important;
+            height: 52px !important;
+            perspective: 300px !important;
+            transform-style: preserve-3d !important;
+            flex-shrink: 0 !important;
+            filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.45)); /* Ombre portée style Apple OS */
+        }
+
+        /* Thèmes Finder style Apple OS (Bleu Classique Authentique de la Capture d'Écran) */
+        .color-sarah, .color-ted, .color-maxime {
+            --finder-back: linear-gradient(to bottom, #108ee9, #086cb4);
+            --finder-tab: #108ee9;
+            --finder-front: linear-gradient(to bottom, #39a6f4, #0875c7);
+            --finder-border: #0875c7;
+        }
+
+        .color-sarah {
+            --color: #9d4edd;
+        }
+
+        .color-ted {
+            --color: #ff007f;
+        }
+
+        .color-maxime {
+            --color: #ffb703;
+        }
+
+        /* Rabat arrière Finder - Taille fixe */
+        .finder-back {
+            position: absolute !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            width: 64px !important;
+            height: 44px !important;
+            border-radius: 5px !important;
+            background: var(--finder-back) !important;
+            border: 1px solid var(--finder-border) !important;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.15) !important;
+            z-index: 1 !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Onglet supérieur style Finder - Forme arrondie macOS authentique */
+        .finder-tab {
+            position: absolute !important;
+            top: -6px !important;
+            left: 0 !important;
+            width: 26px !important;
+            height: 8px !important;
+            background: var(--finder-tab) !important;
+            border-radius: 3px 3px 0 0 !important;
+            z-index: 1 !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Document qui glisse du dossier style Finder - Taille fixe */
+        .finder-paper {
+            position: absolute !important;
+            bottom: 2px !important;
+            left: 6px !important;
+            width: 52px !important;
+            height: 42px !important;
+            background: #ffffff !important;
+            border-radius: 3.5px !important;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3) !important;
+            transform: translateY(0) translateZ(1px) !important;
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            z-index: 2 !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Rabat avant Finder - Taille fixe */
+        .finder-front {
+            position: absolute !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            width: 64px !important;
+            height: 41px !important;
+            border-radius: 5px !important;
+            background: var(--finder-front) !important;
+            border: 1.5px solid rgba(255, 255, 255, 0.2) !important;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.22) !important;
+            transform-origin: bottom center !important;
+            transform: rotateX(0deg) translateZ(4px) !important;
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+            z-index: 3 !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Animations interactives au Survol */
+        .folder-card:hover .finder-front {
+            transform: rotateX(-26deg) translateZ(4px) !important;
+        }
+
+        .folder-card:hover .finder-paper {
+            transform: translateY(-12px) translateZ(1px) !important;
+        }
+
+        /* Animations interactives lorsque le dossier est Ouvert */
+        .folder-card-wrapper.open .finder-front {
+            transform: rotateX(-38deg) translateZ(4px) !important;
+        }
+
+        .folder-card-wrapper.open .finder-paper {
+            transform: translateY(-18px) translateZ(1px) !important;
+        }
+
+        /* Points lumineux pulsants de notification */
+        .pulse-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        .dot-sarah {
+            background: #c77dff;
+            box-shadow: 0 0 8px #9d4edd;
+            animation: pulseSarah 2s infinite ease-in-out;
+        }
+
+        .dot-ted {
+            background: #ff66b2;
+            box-shadow: 0 0 8px #ff007f;
+            animation: pulseTed 2s infinite ease-in-out;
+        }
+
+        .dot-maxime {
+            background: #ffc93c;
+            box-shadow: 0 0 8px #ffb703;
+            animation: pulseMaxime 2s infinite ease-in-out;
+        }
+
+        @keyframes pulseSarah {
+            0%, 100% { box-shadow: 0 0 4px #9d4edd; opacity: 0.7; }
+            50% { box-shadow: 0 0 12px #9d4edd; opacity: 1; }
+        }
+
+        @keyframes pulseTed {
+            0%, 100% { box-shadow: 0 0 4px #ff007f; opacity: 0.7; }
+            50% { box-shadow: 0 0 12px #ff007f; opacity: 1; }
+        }
+
+        @keyframes pulseMaxime {
+            0%, 100% { box-shadow: 0 0 4px #ffb703; opacity: 0.7; }
+            50% { box-shadow: 0 0 12px #ffb703; opacity: 1; }
+        }
+
+        /* Infos Dossier */
+        .folder-info {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .folder-badge {
+            align-self: flex-start;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 3px 8px;
+            border-radius: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-sarah {
+            background: rgba(157, 78, 221, 0.15);
+            color: #c77dff;
+            border: 1px solid rgba(157, 78, 221, 0.3);
+        }
+
+        .badge-ted {
+            background: rgba(255, 0, 127, 0.12);
+            color: #ff66b2;
+            border: 1px solid rgba(255, 0, 127, 0.3);
+        }
+
+        .badge-maxime {
+            background: rgba(255, 183, 3, 0.12);
+            color: #ffc93c;
+            border: 1px solid rgba(255, 183, 3, 0.3);
+        }
+
+        .folder-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .folder-meta {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Indicateur flèche (Chevron) */
+        .folder-action-indicator {
+            color: var(--text-muted);
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chevron-icon {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Tiroir de contenu de dossier (Expandable Drawer) */
+        .folder-content-drawer {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transition: max-height 0.45s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                        opacity 0.35s ease, 
+                        visibility 0.35s;
+        }
+
+        .drawer-inner {
+            margin-top: 10px;
+            padding: 16px;
+            border-radius: var(--border-radius-md);
+            background: rgba(15, 10, 35, 0.45);
+            border: 1px solid var(--border-glass);
+        }
+
+        /* État ouvert du dossier */
+        .folder-card-wrapper.open .folder-content-drawer {
+            max-height: 300px;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .folder-card-wrapper.open .folder-card {
+            border-color: var(--primary);
+            background: rgba(43, 31, 79, 0.7);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .folder-card-wrapper.open .chevron-icon {
+            transform: rotate(180deg);
+            color: var(--primary);
+        }
+
+        /* Vignette Vidéo Surprise */
+        .video-preview-card {
+            display: flex;
+            gap: 16px;
+            padding: 12px;
+            border-radius: var(--border-radius-sm);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .video-preview-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.12);
+            transform: scale(1.02);
+        }
+
+        .preview-thumbnail {
+            position: relative;
+            width: 90px;
+            height: 90px;
+            border-radius: var(--border-radius-sm);
+            flex-shrink: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Gradients miniatures */
+        .preview-thumbnail.color-sarah {
+            background: linear-gradient(135deg, #9d4edd 0%, #3c096c 100%);
+        }
+
+        .preview-thumbnail.color-ted {
+            background: linear-gradient(135deg, #ff007f 0%, #7a003c 100%);
+        }
+
+        .preview-thumbnail.color-maxime {
+            background: linear-gradient(135deg, #ffb703 0%, #9e5a00 100%);
+        }
+
+        .preview-tag {
+            position: absolute;
+            bottom: 5px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            background: rgba(0, 0, 0, 0.65);
+            padding: 2px 6px;
+            border-radius: 4px;
+            letter-spacing: 0.3px;
+            color: #fff;
+        }
+
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .video-preview-card:hover .play-overlay {
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .play-pulse-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #fff;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: var(--transition-bounce);
+        }
+
+        .video-preview-card:hover .play-pulse-btn {
+            transform: scale(1.15);
+            background: var(--accent);
+            color: var(--text-dark);
+        }
+
+        .preview-details {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .preview-details h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .preview-details p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        @media (max-width: 480px) {
+            .video-preview-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .preview-thumbnail {
+                width: 100%;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Canvas pour l'animation festive de confettis -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Écran d'accueil interactif (Hero) - Style identique aux pages de départ -->
+    <header class="hero">
+        <div class="hero-content skyrock-hero-content">
+            <div class="gift-icon-wrapper">
+                <svg class="gift-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 12V20C20 20.5523 19.5523 21 19 21H5C4.44772 21 4 20.5523 4 20V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    <path d="M22 7H2V12H22V7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                    <path d="M12 21V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    <path d="M12 7C12 7 9.5 3 6.5 3C4 3 3 5 3 6.5C3 9 7 12 12 12C17 12 21 9 21 6.5C21 5 20 3 17.5 3C14.5 3 12 7 12 7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                </svg>
+            </div>
+            <h1 class="hero-title">Joyeux Anniversaire <span class="highlight">Lily</span> !</h1>
+            <p class="hero-subtitle">L'équipe de Skyrock te réserve une surprise magique. Clique ci-dessous pour la découvrir...</p>
+            <button id="btn-explore" class="btn btn-primary">
+                Découvrir la surprise
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke="currentColor" stroke-width="2" />
+                    <path d="M8 12L11 15L16 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Conteneur principal (Masqué au départ, révélé avec transition fluide) -->
+    <main class="main-container skyrock-container">
+        
+        <!-- Bouton Retour à l'accueil intégré à la grille -->
+        <div class="back-home-wrapper-inner">
+            <a href="../index.html" class="btn btn-secondary back-home-btn" id="btn-back-home">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Retour à l'album
+            </a>
+        </div>
+
+        <section class="gallery-section">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Les Dossiers de l'Équipe Skyrock 📻</h2>
+                    <p class="section-desc">Clique sur le dossier d'un animateur pour l'ouvrir et lancer sa vidéo surprise.</p>
+                </div>
+            </div>
+
+            <!-- Grille des Dossiers (Bureau) -->
+            <div class="folders-grid">
+                
+                <!-- DOSSIER SARAH DE SKYROCK -->
+                <div class="folder-card-wrapper color-sarah" id="folder-sarah">
+                    <div class="folder-card glass" onclick="toggleFolder('folder-sarah')">
+                        <div class="folder-icon-area">
+                            <div class="folder-finder">
+                                <div class="finder-back">
+                                    <div class="finder-tab"></div>
+                                </div>
+                                <div class="finder-paper"></div>
+                                <div class="finder-front"></div>
+                            </div>
+                        </div>
+                        <div class="folder-info">
+                            <span class="folder-badge badge-sarah">Sarah de Skyrock</span>
+                            <h3 class="folder-title">Dossier Sarah</h3>
+                            <p class="folder-meta">
+                                <span class="pulse-dot dot-sarah"></span>
+                                1 message vidéo
+                            </p>
+                        </div>
+                        <div class="folder-action-indicator">
+                            <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <!-- Contenu du dossier Sarah -->
+                    <div class="folder-content-drawer">
+                        <div class="drawer-inner glass">
+                            <div class="video-preview-card" onclick="playSelectedVideo('sarah-de-skyrock')">
+                                <div class="preview-thumbnail color-sarah">
+                                    <div class="play-overlay">
+                                        <div class="play-pulse-btn">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M8 5V19L19 12L8 5Z"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <span class="preview-tag">Vidéo Surprise</span>
+                                </div>
+                                <div class="preview-details">
+                                    <h4>Sarah - Message d'Anniversaire 🎂</h4>
+                                    <p>Clique ici pour lancer le message vidéo magique préparé par Sarah de Skyrock !</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DOSSIER TED DE SKYROCK -->
+                <div class="folder-card-wrapper color-ted" id="folder-ted">
+                    <div class="folder-card glass" onclick="toggleFolder('folder-ted')">
+                        <div class="folder-icon-area">
+                            <div class="folder-finder">
+                                <div class="finder-back">
+                                    <div class="finder-tab"></div>
+                                </div>
+                                <div class="finder-paper"></div>
+                                <div class="finder-front"></div>
+                            </div>
+                        </div>
+                        <div class="folder-info">
+                            <span class="folder-badge badge-ted">Ted de Skyrock</span>
+                            <h3 class="folder-title">Dossier Ted</h3>
+                            <p class="folder-meta">
+                                <span class="pulse-dot dot-ted"></span>
+                                1 message vidéo
+                            </p>
+                        </div>
+                        <div class="folder-action-indicator">
+                            <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <!-- Contenu du dossier Ted -->
+                    <div class="folder-content-drawer">
+                        <div class="drawer-inner glass">
+                            <div class="video-preview-card" onclick="playSelectedVideo('ted-de-skyrock')">
+                                <div class="preview-thumbnail color-ted">
+                                    <div class="play-overlay">
+                                        <div class="play-pulse-btn">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M8 5V19L19 12L8 5Z"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <span class="preview-tag">Vidéo Surprise</span>
+                                </div>
+                                <div class="preview-details">
+                                    <h4>Ted - Message d'Anniversaire 🎈</h4>
+                                    <p>Clique ici pour lancer le message vidéo magique préparé par Ted de Skyrock !</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DOSSIER MAXIME DE SKYROCK -->
+                <div class="folder-card-wrapper color-maxime" id="folder-maxime">
+                    <div class="folder-card glass" onclick="toggleFolder('folder-maxime')">
+                        <div class="folder-icon-area">
+                            <div class="folder-finder">
+                                <div class="finder-back">
+                                    <div class="finder-tab"></div>
+                                </div>
+                                <div class="finder-paper"></div>
+                                <div class="finder-front"></div>
+                            </div>
+                        </div>
+                        <div class="folder-info">
+                            <span class="folder-badge badge-maxime">Maxime de Skyrock</span>
+                            <h3 class="folder-title">Dossier Maxime</h3>
+                            <p class="folder-meta">
+                                <span class="pulse-dot dot-maxime"></span>
+                                1 message vidéo
+                            </p>
+                        </div>
+                        <div class="folder-action-indicator">
+                            <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <!-- Contenu du dossier Maxime -->
+                    <div class="folder-content-drawer">
+                        <div class="drawer-inner glass">
+                            <div class="video-preview-card" onclick="playSelectedVideo('maxime-skyrock')">
+                                <div class="preview-thumbnail color-maxime">
+                                    <div class="play-overlay">
+                                        <div class="play-pulse-btn">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M8 5V19L19 12L8 5Z"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <span class="preview-tag">Vidéo Surprise</span>
+                                </div>
+                                <div class="preview-details">
+                                    <h4>Maxime - Message d'Anniversaire 🎉</h4>
+                                    <p>Clique ici pour lancer le message vidéo magique préparé par Maxime de Skyrock !</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal d'affichage de la vidéo (Immersive) -->
+    <div id="video-modal" class="modal-overlay hidden">
+        <div class="modal-container glass">
+            <button id="modal-close" class="modal-close-btn" aria-label="Fermer la modale">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            
+            <div class="modal-content-layout">
+                <!-- Lecteur Vidéo HTML5 Personnalisé -->
+                <div class="modal-video-column">
+                    <div class="custom-video-player">
+                        <!-- Titre flottant du participant -->
+                        <div class="video-overlay-title">
+                            <span id="modal-participant-name">Prénom</span>
+                        </div>
+                        <video id="modal-video-element" playsinline></video>
+                        <div class="video-loader" id="video-loader">
+                            <div class="spinner"></div>
+                        </div>
+                        <!-- Contrôles personnalisés du lecteur vidéo -->
+                        <div class="custom-video-controls">
+                            <button id="video-btn-play" class="control-btn" aria-label="Lire/Pause">
+                                <svg id="icon-play" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8 5V19L19 12L8 5Z"/>
+                                </svg>
+                                <svg id="icon-pause" class="hidden" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M6 19H10V5H6V19ZM14 5V19H18V5H14Z"/>
+                                </svg>
+                            </button>
+                            <div class="video-progress-container" id="video-progress-bar">
+                                <div class="video-progress-filled" id="video-progress-filled"></div>
+                            </div>
+                            <span class="video-time" id="video-time">0:00 / 0:00</span>
+                            <button id="video-btn-mute" class="control-btn" aria-label="Activer/Couper le son">
+                                <svg id="icon-unmute" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M3 9V15H7L12 20V4L7 9H3ZM16.5 12C16.5 10.23 15.48 8.71 14 8V16C15.48 15.29 16.5 13.77 16.5 12ZM14 3.23V5.29C16.89 6.15 19 8.83 19 12C19 15.17 16.89 17.85 14 18.71V20.77C18.01 19.86 21 16.28 21 12C21 7.72 18.01 4.14 14 3.23Z"/>
+                                </svg>
+                                <svg id="icon-mute" class="hidden" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M16.5 12C16.5 10.23 15.48 8.71 14 8V10.26L16.29 12.55C16.43 12.37 16.5 12.19 16.5 12ZM19 12C19 12.87 18.84 13.71 18.54 14.49L20.08 16.03C20.67 14.83 21 13.46 21 12C21 7.72 18.01 4.14 14 3.23V5.29C16.89 6.15 19 8.83 19 12ZM4.27 3L3 4.27L7.73 9H3V15H7L12 20V13.27L16.25 17.52C15.58 18.04 14.83 18.45 14 18.7V20.76C15.38 20.48 16.63 19.82 17.68 18.96L19.73 21L21 19.73L12 10.73L4.27 3ZM12 4L9.91 6.09L12 8.18V4Z"/>
+                                </svg>
+                            </button>
+                            <!-- Bouton Télécharger -->
+                            <a id="video-btn-download" class="control-btn" download aria-label="Télécharger la vidéo">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 15V3M12 15L8 11M12 15L16 11M2 17V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <p>© 2026 - L'album à souvenirs de Lily. Joyeux Anniversaire ! 🎉</p>
+    </footer>
+
+    <!-- Logique JavaScript interactive embarquée -->
+    <script>
+        /* ==========================================================================
+           LOGIQUE INTERACTIVE DE L'ESPACE HUB SKYROCK (EMBARQUÉ)
+           ========================================================================== */
+
+        // 1. BASE DE DONNÉES DES ANIMATEURS SKYROCK (Chemins depuis le sous-dossier SKYROCK/)
+        const SKYROCK_MEMORIES = [
+            {
+                id: "sarah-de-skyrock",
+                name: "Sarah de Skyrock",
+                videoUrl: "../assets/skyrock/sarah-skyrock/sarah-skyrock.MOV"
+            },
+            {
+                id: "ted-de-skyrock",
+                name: "Ted de Skyrock",
+                videoUrl: "../assets/skyrock/Ted-skyrock/TED.mov"
+            },
+            {
+                id: "maxime-skyrock",
+                name: "Maxime de Skyrock",
+                videoUrl: "../assets/skyrock/maxime-skyrock/MAXIME.MOV"
+            }
+        ];
+
+        // 2. LOGIQUE DES CONFETTIS EN CANVAS 2D
+        const canvas = document.getElementById("confetti-canvas");
+        const ctx = canvas.getContext("2d");
+
+        let confettiParticles = [];
+        let animationFrameId = null;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener("resize", resizeCanvas);
+        resizeCanvas();
+
+        const CONFETTI_COLORS = [
+            "#9d4edd", // Violet
+            "#ff007f", // Rose
+            "#ffb703", // Accent or
+            "#240046", // Violet foncé
+            "#e2e8f0", // Blanc
+            "#06b6d4"  // Cyan
+        ];
+
+        class Confetti {
+            constructor(x, y, isBurst = false) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 8 + 6;
+                this.color = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
+                
+                if (isBurst) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = Math.random() * 12 + 4;
+                    this.speedX = Math.cos(angle) * speed;
+                    this.speedY = Math.sin(angle) * speed - 2;
+                } else {
+                    this.speedX = Math.random() * 3 - 1.5;
+                    this.speedY = Math.random() * 3 + 2; // Chute
+                }
+                
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = Math.random() * 4 - 2;
+                this.opacity = 1;
+                this.decay = Math.random() * 0.015 + 0.005;
+                this.isBurst = isBurst;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.rotation += this.rotationSpeed;
+                
+                if (this.isBurst) {
+                    this.speedX *= 0.96;
+                    this.speedY += 0.2;
+                    this.opacity -= this.decay;
+                } else {
+                    this.speedY += 0.01;
+                    this.speedX += Math.sin(this.y / 30) * 0.01;
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate((this.rotation * Math.PI) / 180);
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = this.color;
+                
+                if (this.size % 2 === 0) {
+                    ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size / 1.5);
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(0, 0, this.size / 2, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.restore();
+            }
+        }
+
+        function triggerConfettiBurst(x, y) {
+            for (let i = 0; i < 70; i++) {
+                confettiParticles.push(new Confetti(x, y, true));
+            }
+        }
+
+        function addConfettiRain() {
+            if (confettiParticles.filter(p => !p.isBurst).length < 50) {
+                confettiParticles.push(new Confetti(Math.random() * canvas.width, -10, false));
+            }
+        }
+
+        function animateConfettis() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            addConfettiRain();
+
+            for (let i = confettiParticles.length - 1; i >= 0; i--) {
+                const p = confettiParticles[i];
+                p.update();
+                p.draw();
+
+                if (p.opacity <= 0 || p.y > canvas.height + 20 || p.x < -20 || p.x > canvas.width + 20) {
+                    confettiParticles.splice(i, 1);
+                }
+            }
+
+            animationFrameId = requestAnimationFrame(animateConfettis);
+        }
+
+        // 3. LOGIQUE D'OUVERTURE DE DOSSIER (ACCORDÉON)
+        function toggleFolder(folderId) {
+            const activeWrapper = document.getElementById(folderId);
+            const isOpen = activeWrapper.classList.contains("open");
+            
+            // Fermer tous les dossiers ouverts
+            document.querySelectorAll(".folder-card-wrapper").forEach(wrapper => {
+                wrapper.classList.remove("open");
+            });
+            
+            // Si le dossier cliqué n'était pas ouvert, on l'ouvre
+            if (!isOpen) {
+                activeWrapper.classList.add("open");
+                
+                // Petite explosion de confettis sur le dossier cliqué
+                const rect = activeWrapper.getBoundingClientRect();
+                triggerConfettiBurst(rect.left + rect.width / 2, rect.top + rect.height / 2);
+            }
+        }
+
+        // 4. LECTEUR VIDÉO IMMERSIF ET MODALE
+        const modal = document.getElementById("video-modal");
+        const modalClose = document.getElementById("modal-close");
+        const modalVideo = document.getElementById("modal-video-element");
+        const videoLoader = document.getElementById("video-loader");
+        const modalName = document.getElementById("modal-participant-name");
+
+        // Contrôles
+        const playBtn = document.getElementById("video-btn-play");
+        const iconPlay = document.getElementById("icon-play");
+        const iconPause = document.getElementById("icon-pause");
+        const progressBar = document.getElementById("video-progress-bar");
+        const progressFilled = document.getElementById("video-progress-filled");
+        const timeLabel = document.getElementById("video-time");
+        const muteBtn = document.getElementById("video-btn-mute");
+        const iconUnmute = document.getElementById("icon-unmute");
+        const iconMute = document.getElementById("icon-mute");
+        const downloadBtn = document.getElementById("video-btn-download");
+
+        let currentVideoFallbacks = [];
+        let currentFallbackIndex = 0;
+
+        function playSelectedVideo(participantId) {
+            const memory = SKYROCK_MEMORIES.find(m => m.id === participantId);
+            if (!memory) return;
+
+            modalName.innerText = memory.name;
+            const originalPath = memory.videoUrl;
+
+            // Configurer le téléchargement originel
+            downloadBtn.href = originalPath;
+            const extension = originalPath.split('.').pop();
+            downloadBtn.download = `Joyeux_Anniversaire_Lily_par_${memory.name}.${extension}`;
+
+            // Construire les chemins de secours (fallbacks)
+            currentVideoFallbacks = [originalPath];
+            currentFallbackIndex = 0;
+
+            const lastSlashIdx = originalPath.lastIndexOf('/');
+            const basePath = originalPath.substring(0, lastSlashIdx + 1);
+            const fileName = originalPath.substring(lastSlashIdx + 1);
+            const nameWithoutExt = fileName.substring(0, fileName.lastIndexOf('.'));
+
+            // Ajouter des variations de formats de secours
+            const formats = ['MOV', 'mov', 'mp4', 'MP4'];
+            formats.forEach(f => {
+                const altPath = basePath + nameWithoutExt + '.' + f;
+                if (altPath !== originalPath && !currentVideoFallbacks.includes(altPath)) {
+                    currentVideoFallbacks.push(altPath);
+                }
+            });
+            
+            // Si c'est Ted ou Maxime, ajouter également une recherche générique vers "video.mp4", "video.MOV", etc.
+            if (fileName !== 'video.mp4') {
+                formats.forEach(f => {
+                    const genericPath = basePath + 'video.' + f;
+                    if (!currentVideoFallbacks.includes(genericPath)) {
+                        currentVideoFallbacks.push(genericPath);
+                    }
+                });
+            }
+
+            // Charger la première option de vidéo
+            videoLoader.classList.add("active");
+            modalVideo.src = currentVideoFallbacks[0];
+
+            // Réinitialiser les icônes et barres
+            iconPlay.classList.remove("hidden");
+            iconPause.classList.add("hidden");
+            progressFilled.style.width = "0%";
+            timeLabel.innerText = "0:00 / 0:00";
+
+            // Ouvrir la modale et lancer les confettis
+            modal.classList.add("active");
+            triggerConfettiBurst(window.innerWidth / 2, window.innerHeight / 2);
+
+            modalVideo.load();
+        }
+
+        modalVideo.addEventListener("canplay", () => {
+            videoLoader.classList.remove("active");
+        });
+
+        modalVideo.addEventListener("waiting", () => {
+            videoLoader.classList.add("active");
+        });
+
+        modalVideo.addEventListener("error", () => {
+            // Si la lecture échoue, on tente le format suivant
+            currentFallbackIndex++;
+            if (currentFallbackIndex < currentVideoFallbacks.length) {
+                console.log(`Format échoué. Essai avec : ${currentVideoFallbacks[currentFallbackIndex]}`);
+                modalVideo.src = currentVideoFallbacks[currentFallbackIndex];
+                
+                // Mettre à jour le téléchargement vers le format fonctionnel actuel
+                downloadBtn.href = currentVideoFallbacks[currentFallbackIndex];
+                const extension = currentVideoFallbacks[currentFallbackIndex].split('.').pop();
+                downloadBtn.download = `Joyeux_Anniversaire_Lily_par_${modalName.innerText}.${extension}`;
+                
+                modalVideo.load();
+            } else {
+                videoLoader.classList.remove("active");
+                console.warn("Toutes les vidéos ou replis ont échoué à charger.");
+            }
+        });
+
+        function closeModal() {
+            modal.classList.remove("active");
+            modalVideo.pause();
+            modalVideo.src = "";
+            currentVideoFallbacks = [];
+            currentFallbackIndex = 0;
+        }
+
+        modalClose.addEventListener("click", closeModal);
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        // Contrôles du Lecteur
+        function togglePlay() {
+            if (modalVideo.paused) {
+                modalVideo.play();
+                iconPlay.classList.add("hidden");
+                iconPause.classList.remove("hidden");
+            } else {
+                modalVideo.pause();
+                iconPlay.classList.remove("hidden");
+                iconPause.classList.add("hidden");
+            }
+        }
+
+        playBtn.addEventListener("click", togglePlay);
+        modalVideo.addEventListener("click", togglePlay);
+
+        modalVideo.addEventListener("timeupdate", () => {
+            if (!modalVideo.duration) return;
+            
+            const percentage = (modalVideo.currentTime / modalVideo.duration) * 100;
+            progressFilled.style.width = `${percentage}%`;
+            
+            const formatTime = (time) => {
+                const mins = Math.floor(time / 60);
+                const secs = Math.floor(time % 60);
+                return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+            };
+
+            timeLabel.innerText = `${formatTime(modalVideo.currentTime)} / ${formatTime(modalVideo.duration)}`;
+        });
+
+        progressBar.addEventListener("click", (e) => {
+            const rect = progressBar.getBoundingClientRect();
+            const pos = (e.clientX - rect.left) / rect.width;
+            modalVideo.currentTime = pos * modalVideo.duration;
+        });
+
+        muteBtn.addEventListener("click", () => {
+            modalVideo.muted = !modalVideo.muted;
+            if (modalVideo.muted) {
+                iconUnmute.classList.add("hidden");
+                iconMute.classList.remove("hidden");
+            } else {
+                iconUnmute.classList.remove("hidden");
+                iconMute.classList.add("hidden");
+            }
+        });
+
+        // 5. INITIALISATION DYNAMIQUE DES TRANSITIONS ET EVENEMENTS
+        document.addEventListener("DOMContentLoaded", () => {
+            animateConfettis();
+            
+            const btnExplore = document.getElementById("btn-explore");
+            const heroContent = document.querySelector(".skyrock-hero-content");
+            const skyrockContainer = document.querySelector(".skyrock-container");
+
+            // Événement d'exploration : Animation d'apparition du Hub des dossiers Finder
+            btnExplore.addEventListener("click", (e) => {
+                const rect = e.target.getBoundingClientRect();
+                triggerConfettiBurst(rect.left + rect.width / 2, rect.top + rect.height / 2);
+                
+                // Début de l'animation de fondu de sortie du Hero de départ
+                heroContent.classList.add("fade-out");
+                
+                setTimeout(() => {
+                    // Cacher le conteneur de Hero pour laisser place aux dossiers
+                    document.querySelector(".hero").style.display = "none";
+                    
+                    // Afficher la section principale
+                    skyrockContainer.style.display = "block";
+                    
+                    // Appliquer la transition d'entrée progressive (fade-in)
+                    setTimeout(() => {
+                        skyrockContainer.classList.add("reveal");
+                        triggerConfettiBurst(window.innerWidth / 2, window.innerHeight / 3);
+                        
+                        // Ouvrir automatiquement le dossier de Sarah après 500ms pour guider Lily
+                        setTimeout(() => {
+                            toggleFolder('folder-sarah');
+                        }, 500);
+                    }, 50);
+                }, 500);
+            });
+
+            // Déclencheur sur le clic de retour
+            document.getElementById("btn-back-home").addEventListener("click", (e) => {
+                const rect = e.target.getBoundingClientRect();
+                triggerConfettiBurst(rect.left + rect.width / 2, rect.top + rect.height / 2);
+            });
+        });
+    </script>
+</body>
+</html>
