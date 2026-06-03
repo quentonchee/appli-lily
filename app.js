@@ -80,6 +80,11 @@ const MEMORIES = [
         videoUrl: "assets/Floryen/video.mp4"
     },
     {
+        id: "gabriel",
+        name: "Gabriel",
+        videoUrl: "assets/gabriel/gabriel.MOV"
+    },
+    {
         id: "gwen",
         name: "Gwen",
         videoUrl: "assets/Gwen/video.mp4"
