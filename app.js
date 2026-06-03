@@ -70,6 +70,11 @@ const MEMORIES = [
         videoUrl: "assets/enzo-madmoiselle/video.mp4"
     },
     {
+        id: "famille",
+        name: "Famille",
+        videoUrl: "assets/famille/video.mp4"
+    },
+    {
         id: "floryen",
         name: "Floryen",
         videoUrl: "assets/Floryen/video.mp4"
@@ -100,11 +105,6 @@ const MEMORIES = [
         videoUrl: "assets/Laetitia/video.mp4"
     },
     {
-        id: "le-daron",
-        name: "Le Daron",
-        videoUrl: "assets/Le Daron/video.mp4"
-    },
-    {
         id: "les-barbeaux",
         name: "Les Barbeaux",
         videoUrl: "assets/Les-Barbeaux/video.mp4"
@@ -123,11 +123,6 @@ const MEMORIES = [
         id: "lina",
         name: "Lina",
         videoUrl: "assets/Lina/video.mp4"
-    },
-    {
-        id: "magalie",
-        name: "Magalie",
-        videoUrl: "assets/Magalie/video.mp4"
     },
     {
         id: "maia",
