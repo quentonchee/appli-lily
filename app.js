@@ -152,7 +152,7 @@ const MEMORIES = [
     {
         id: "noah",
         name: "Noah",
-        videoUrl: "assets/Noah/video.mp4"
+        videoUrl: "assets/noah/NOAH.MOV"
     },
     {
         id: "noel",
