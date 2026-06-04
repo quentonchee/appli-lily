@@ -47,7 +47,7 @@ const MEMORIES = [
     {
         id: "cassandra",
         name: "Cassandra",
-        videoUrl: "assets/Cassandra/video.mp4"
+        videoUrl: "assets/Cassandra/cassandra.mov"
     },
     {
         id: "emilie",
@@ -67,12 +67,12 @@ const MEMORIES = [
     {
         id: "enzo-madmoiselle",
         name: "Enzo Madmoiselle",
-        videoUrl: "assets/enzo-madmoiselle/video.mp4"
+        videoUrl: "assets/Enzo-mademoiselle/Enzo-mademoiselle.mp4"
     },
     {
         id: "famille",
         name: "Famille",
-        videoUrl: "assets/famille/video.mp4"
+        videoUrl: "assets/famille/familllle.mov"
     },
     {
         id: "floryen",
@@ -117,7 +117,7 @@ const MEMORIES = [
     {
         id: "les-goulamas-k",
         name: "Les Goulamas'k",
-        videoUrl: "assets/Les-Goulamas'k/video.mp4"
+        videoUrl: "assets/goulamas'k/goulamas'k.MP4"
     },
     {
         id: "lilian",
@@ -147,7 +147,7 @@ const MEMORIES = [
     {
         id: "marine",
         name: "Marine",
-        videoUrl: "assets/Marine/video.mp4"
+        videoUrl: "assets/marine/marine.MOV"
     },
     {
         id: "mathieu",
@@ -182,7 +182,7 @@ const MEMORIES = [
     {
         id: "quentin",
         name: "Quentin",
-        videoUrl: "assets/Quentin/video.mp4"
+        videoUrl: "assets/Quentin/quentin.mov"
     },
     {
         id: "selegini",
@@ -353,54 +353,91 @@ const downloadBtn = document.getElementById("video-btn-download");
 let currentVideoFallbacks = [];
 let currentFallbackIndex = 0;
 
+function getYouTubeId(url) {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|shorts\/)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : null;
+}
+
 function openVideoModal(memory) {
     // Mettre à jour le titre du participant
     modalName.innerText = memory.name;
 
     // Déterminer le bon chemin vidéo selon si on est dans un sous-dossier ou à la racine
     let videoPath = memory.videoUrl;
-    if (window.CURRENT_PARTICIPANT && !videoPath.startsWith("../")) {
+    if (window.CURRENT_PARTICIPANT && !videoPath.startsWith("../") && !videoPath.startsWith("http://") && !videoPath.startsWith("https://") && !videoPath.startsWith("//")) {
         videoPath = "../" + videoPath;
     }
 
-    // Configurer le bouton de téléchargement de la vidéo
-    downloadBtn.href = videoPath;
-    
-    // Déterminer l'extension du fichier original
-    const extension = videoPath.split('.').pop();
-    downloadBtn.download = `Joyeux_Anniversaire_Lily_par_${memory.name}.${extension}`;
-
-    // Construire la liste de replis si c'est une vidéo par défaut "video.mp4"
-    currentVideoFallbacks = [videoPath];
-    currentFallbackIndex = 0;
-
-    if (videoPath.endsWith('/video.mp4')) {
-        const basePath = videoPath.substring(0, videoPath.length - 4);
-        currentVideoFallbacks.push(basePath + '.mov');
-        currentVideoFallbacks.push(basePath + '.MOV');
-        currentVideoFallbacks.push(basePath + '.MP4');
-    } else if (videoPath.endsWith('/video.MOV')) {
-        const basePath = videoPath.substring(0, videoPath.length - 4);
-        currentVideoFallbacks.push(basePath + '.mp4');
-        currentVideoFallbacks.push(basePath + '.mov');
-        currentVideoFallbacks.push(basePath + '.MP4');
+    // Supprimer un éventuel iframe YouTube existant
+    const oldIframe = document.getElementById("youtube-video-element");
+    if (oldIframe) {
+        oldIframe.remove();
     }
 
-    // Préparer le chargement de la vidéo
-    videoLoader.classList.add("active");
-    modalVideo.src = currentVideoFallbacks[0];
+    const ytId = getYouTubeId(videoPath);
+    const customControls = document.querySelector(".custom-video-controls");
 
-    // Réinitialiser les états des contrôles du lecteur
-    iconPlay.classList.remove("hidden");
-    iconPause.classList.add("hidden");
-    progressFilled.style.width = "0%";
-    timeLabel.innerText = "0:00 / 0:00";
+    if (ytId) {
+        // C'est une vidéo YouTube
+        modalVideo.style.display = "none";
+        if (customControls) customControls.style.display = "none";
+        videoLoader.classList.remove("active");
 
-    // Ouvrir la modale avec effet confetti
-    modal.classList.add("active");
-    triggerConfettiBurst(window.innerWidth / 2, window.innerHeight / 2);
+        const iframe = document.createElement("iframe");
+        iframe.id = "youtube-video-element";
+        iframe.src = `https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0`;
+        iframe.allow = "autoplay; encrypted-media; picture-in-picture";
+        iframe.allowFullscreen = true;
+        modalVideo.parentNode.insertBefore(iframe, modalVideo);
 
-    modalVideo.load();
+        // Ouvrir la modale avec effet confetti
+        modal.classList.add("active");
+        triggerConfettiBurst(window.innerWidth / 2, window.innerHeight / 2);
+    } else {
+        // C'est une vidéo normale
+        modalVideo.style.display = "block";
+        if (customControls) customControls.style.display = "flex";
+
+        // Configurer le bouton de téléchargement de la vidéo
+        downloadBtn.href = videoPath;
+        
+        // Déterminer l'extension du fichier original
+        const extension = videoPath.split('.').pop();
+        downloadBtn.download = `Joyeux_Anniversaire_Lily_par_${memory.name}.${extension}`;
+
+        // Construire la liste de replis si c'est une vidéo par défaut "video.mp4"
+        currentVideoFallbacks = [videoPath];
+        currentFallbackIndex = 0;
+
+        if (videoPath.endsWith('/video.mp4')) {
+            const basePath = videoPath.substring(0, videoPath.length - 4);
+            currentVideoFallbacks.push(basePath + '.mov');
+            currentVideoFallbacks.push(basePath + '.MOV');
+            currentVideoFallbacks.push(basePath + '.MP4');
+        } else if (videoPath.endsWith('/video.MOV')) {
+            const basePath = videoPath.substring(0, videoPath.length - 4);
+            currentVideoFallbacks.push(basePath + '.mp4');
+            currentVideoFallbacks.push(basePath + '.mov');
+            currentVideoFallbacks.push(basePath + '.MP4');
+        }
+
+        // Préparer le chargement de la vidéo
+        videoLoader.classList.add("active");
+        modalVideo.src = currentVideoFallbacks[0];
+
+        // Réinitialiser les états des contrôles du lecteur
+        iconPlay.classList.remove("hidden");
+        iconPause.classList.add("hidden");
+        progressFilled.style.width = "0%";
+        timeLabel.innerText = "0:00 / 0:00";
+
+        // Ouvrir la modale avec effet confetti
+        modal.classList.add("active");
+        triggerConfettiBurst(window.innerWidth / 2, window.innerHeight / 2);
+
+        modalVideo.load();
+    }
 }
 
 modalVideo.addEventListener("canplay", () => {
@@ -434,6 +471,13 @@ function closeModal() {
     modal.classList.remove("active");
     modalVideo.pause();
     modalVideo.src = "";
+    
+    // Supprimer l'iframe YouTube si présent
+    const ytIframe = document.getElementById("youtube-video-element");
+    if (ytIframe) {
+        ytIframe.remove();
+    }
+
     currentVideoFallbacks = [];
     currentFallbackIndex = 0;
     // Vider l'ancre URL pour réinitialiser proprement sans recharger si l'utilisateur ferme la modale
