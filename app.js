@@ -182,7 +182,7 @@ const MEMORIES = [
     {
         id: "pierre",
         name: "Pierre",
-        videoUrl: "assets/Pierre/video.mp4"
+        videoUrl: "assets/pierre/pierre.MOV"
     },
     {
         id: "quentin",
@@ -217,7 +217,7 @@ const MEMORIES = [
     {
         id: "yoan",
         name: "Yoan",
-        videoUrl: "assets/Yoan/video.mp4"
+        videoUrl: "assets/yoan/yoan.MOV"
     }
 ];
 
