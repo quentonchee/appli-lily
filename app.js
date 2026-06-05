@@ -107,12 +107,12 @@ const MEMORIES = [
     {
         id: "laetitia",
         name: "Laetitia",
-        videoUrl: "assets/Laetitia/video.mp4"
+        videoUrl: "assets/laetitia/tournié .mp4"
     },
     {
         id: "les-barbeaux",
         name: "Les Barbeaux",
-        videoUrl: "assets/Les-Barbeaux/video.mp4"
+        videoUrl: "assets/barbeaux/barbeaux.MOV"
     },
     {
         id: "les-goulamas-k",
