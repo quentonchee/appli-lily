@@ -30,6 +30,11 @@ const MEMORIES = [
         videoUrl: "assets/Benoit/IMG_0369.MOV"
     },
     {
+        id: "bleuen",
+        name: "Bleuen",
+        videoUrl: "assets/bleuen/bleuen.MOV"
+    },
+    {
         id: "bryan",
         name: "Bryan",
         videoUrl: "assets/Bryan/video.mp4"
