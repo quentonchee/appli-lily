@@ -447,6 +447,9 @@ function openVideoModal(memory) {
         triggerConfettiBurst(window.innerWidth / 2, window.innerHeight / 2);
 
         modalVideo.load();
+        modalVideo.play().catch(err => {
+            console.warn("Autoplay blocké par le navigateur :", err);
+        });
     }
 }
 
@@ -471,6 +474,9 @@ modalVideo.addEventListener("error", () => {
         downloadBtn.download = `Joyeux_Anniversaire_Lily_par_${modalName.innerText}.${extension}`;
         
         modalVideo.load();
+        modalVideo.play().catch(err => {
+            console.warn("Autoplay blocké par le navigateur sur fallback :", err);
+        });
     } else {
         videoLoader.classList.remove("active");
         console.warn("Tous les formats de repli vidéo ont échoué.");
@@ -501,16 +507,23 @@ modal.addEventListener("click", (e) => {
     if (e.target === modal) closeModal();
 });
 
+// Sincronisation des icônes du lecteur via les événements natifs de lecture
+modalVideo.addEventListener("play", () => {
+    iconPlay.classList.add("hidden");
+    iconPause.classList.remove("hidden");
+});
+
+modalVideo.addEventListener("pause", () => {
+    iconPlay.classList.remove("hidden");
+    iconPause.classList.add("hidden");
+});
+
 // LOGIQUE INTERACTIVE DU LECTEUR VIDÉO
 function togglePlay() {
     if (modalVideo.paused) {
-        modalVideo.play();
-        iconPlay.classList.add("hidden");
-        iconPause.classList.remove("hidden");
+        modalVideo.play().catch(err => console.warn("Erreur lecture :", err));
     } else {
         modalVideo.pause();
-        iconPlay.classList.remove("hidden");
-        iconPause.classList.add("hidden");
     }
 }
 
