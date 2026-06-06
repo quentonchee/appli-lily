@@ -12,6 +12,87 @@
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,400&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../style.css">
+    <style>
+        /* Styles spécifiques pour le cadeau surprise wiggling et son texte */
+        #surprise-gift-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            pointer-events: auto;
+            text-align: center;
+        }
+
+        #surprise-gift-container.active {
+            display: flex;
+        }
+
+        #surprise-gift {
+            font-size: 6rem;
+            cursor: pointer;
+            animation: wiggle 1.2s infinite ease-in-out;
+            filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.4));
+            user-select: none;
+            transition: transform 0.2s ease;
+        }
+
+        #surprise-gift:hover {
+            transform: scale(1.25);
+        }
+
+        #surprise-gift-text {
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.3rem;
+            margin-top: 15px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            background: rgba(157, 78, 221, 0.85); /* Purple primary matching our palette */
+            padding: 8px 20px;
+            border-radius: 20px;
+            pointer-events: none;
+            animation: pulse 1.5s infinite alternate ease-in-out;
+            white-space: nowrap;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                opacity: 0.9;
+            }
+            100% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+        }
+
+        @keyframes wiggle {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            15% {
+                transform: rotate(-15deg) scale(1.1);
+            }
+            30% {
+                transform: rotate(10deg) scale(1.1);
+            }
+            45% {
+                transform: rotate(-10deg) scale(1.1);
+            }
+            60% {
+                transform: rotate(5deg) scale(1.1);
+            }
+            75% {
+                transform: rotate(-5deg) scale(1.1);
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -67,6 +148,10 @@
                             <span id="modal-participant-name">Famille</span>
                         </div>
                         <video id="modal-video-element" playsinline></video>
+                        <div id="surprise-gift-container">
+                            <div id="surprise-gift" aria-label="Cadeau surprise">🎁</div>
+                            <div id="surprise-gift-text">Clique sur le cadeau !</div>
+                        </div>
                         <div class="video-loader" id="video-loader">
                             <div class="spinner"></div>
                         </div>
@@ -127,6 +212,67 @@
         };
     </script>
     <script src="../app.js"></script>
+    <script>
+        // Logique spécifique pour la surprise de la Famille Banane
+        document.addEventListener("DOMContentLoaded", () => {
+            const videoEl = document.getElementById("modal-video-element");
+            const giftContainer = document.getElementById("surprise-gift-container");
+            let isSurprisePlaying = false;
+
+            if (videoEl && giftContainer) {
+                // Événement fin de vidéo
+                videoEl.addEventListener("ended", () => {
+                    if (!isSurprisePlaying) {
+                        giftContainer.classList.add("active");
+                    }
+                });
+
+                // Événement chargement de vidéo pour réinitialisation
+                videoEl.addEventListener("loadstart", () => {
+                    if (videoEl.src.includes("familllle.mov")) {
+                        isSurprisePlaying = false;
+                        giftContainer.classList.remove("active");
+                        
+                        const nameEl = document.getElementById("modal-participant-name");
+                        if (nameEl) nameEl.innerText = "Famille";
+                    }
+                });
+
+                // Clic sur l'emoji cadeau ou son conteneur
+                giftContainer.addEventListener("click", (e) => {
+                    e.stopPropagation(); // Évite les conflits de clics avec le player
+                    giftContainer.classList.remove("active");
+                    isSurprisePlaying = true;
+
+                    // Mettre à jour la source vers la vidéo surprise
+                    videoEl.src = "../assets/famille/nicolas:adelie:léo.mp4";
+
+                    // Mettre à jour le titre du participant dans la modale
+                    const nameEl = document.getElementById("modal-participant-name");
+                    if (nameEl) nameEl.innerText = "Nicolas, Adélie & Léo";
+
+                    // Mettre à jour le bouton de téléchargement
+                    const downloadBtn = document.getElementById("video-btn-download");
+                    if (downloadBtn) {
+                        downloadBtn.href = "../assets/famille/nicolas:adelie:léo.mp4";
+                        downloadBtn.download = "Nicolas_Adelie_Leo.mp4";
+                    }
+
+                    videoEl.load();
+                    videoEl.play().then(() => {
+                        const iconPlay = document.getElementById("icon-play");
+                        const iconPause = document.getElementById("icon-pause");
+                        if (iconPlay && iconPause) {
+                            iconPlay.classList.add("hidden");
+                            iconPause.classList.remove("hidden");
+                        }
+                    }).catch(err => {
+                        console.error("Erreur de lecture de la surprise :", err);
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
