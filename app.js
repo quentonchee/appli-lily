@@ -17,7 +17,7 @@ const MEMORIES = [
     {
         id: "alicia",
         name: "Alicia",
-        videoUrl: "assets/Alicia/video.mp4"
+        videoUrl: "assets/alicia/alicia.MOV"
     },
     {
         id: "axel",
